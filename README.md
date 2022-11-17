@@ -6,7 +6,7 @@
 ## Installation
 1. [Scriptable App](https://apps.apple.com/de/app/scriptable/id1405459188) aus dem App Store laden
 2. Scriptable App öffnen und mit (+) neues Script erstellen
-3. Inhalt vom aktuellen Release kopieren und einfügen
+3. Inhalt der [Augusto.js](https://raw.githubusercontent.com/martinkutter/augusto-scriptable-ios-widget/main/Augusto.js) kopieren und einfügen
 4. Links unten auf die Einstellungen (Schieberegler) tippen
 5. Name "Augusto" eingeben und Schließen
 6. Script mit Play ausführen
