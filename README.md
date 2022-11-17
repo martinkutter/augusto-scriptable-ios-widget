@@ -21,12 +21,12 @@
 ## Small Widget
 <img alt="Ansicht eines kleinen Widgets" src="doc/small.png?raw=true" width="88"/>
 
-Stellt das Essen vom aktuellen Tag dar. Ab 14 Uhr das Essen Folgetag mit Info über den Wochentag rechts oben.
+Stellt das Essen vom aktuellen Tag dar. Ab 14 Uhr das Essen vom Folgetag mit Wochentag rechts oben.
 
 ## Medium Widget
 <img alt="Ansicht eines kleinen Widgets" src="doc/medium.png?raw=true" width="188"/>
 
-Ideal für alle, die Nachtisch oder für ihren Partner mitbestellen. Stellt bis zu zwei Essen vom aktuellen Tag dar. Ab 14 Uhr die Essen des Folgetags mit Info über den Wochentag rechts oben.
+Ideal für alle, die Nachtisch oder für ihren Partner mitbestellen. Stellt bis zu zwei Essen vom aktuellen Tag dar. Ab 14 Uhr die Essen des Folgetags mit Wochentag rechts oben.
 
 ## Large Widget
 <img alt="Ansicht eines kleinen Widgets" src="doc/large.png?raw=true" width="188"/>
