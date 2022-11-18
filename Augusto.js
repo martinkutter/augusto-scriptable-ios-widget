@@ -2,9 +2,11 @@
 // These must be at the very top of the file. Do not edit.
 // icon-color: red; icon-glyph: cookie;
 
+const version = 1;
 const baseUrl = 'chemnitz.kitchen';
+const refreshRate = 1000 * 60 * 60 // 1 hour
 
-const widgetFamily = config.widgetFamily || 'medium';
+const widgetFamily = config.widgetFamily || 'large';
 
 const color = {
     widget: {
@@ -115,7 +117,7 @@ const availableStyle = {
         },
         entry: {
             padding: [4, 0, 0, 0],
-            outerSpacing: 8,
+            outerSpacing: 7,
             innerSpacing: 10,
         },
     }
@@ -133,7 +135,7 @@ if (config.runsInApp && !Keychain.contains('mail') && !Keychain.contains('passwo
     alert.addCancelAction("Abbrechen");
 
     const action = await alert.presentAlert();
-    
+
     if (action === 0 && alert.textFieldValue(0) && alert.textFieldValue(1)) {
         Keychain.set('mail', alert.textFieldValue(0));
         Keychain.set('password', alert.textFieldValue(1));
@@ -156,37 +158,39 @@ Script.complete();
 
 async function createWidget() {
     const widget = new ListWidget();
-    const { stack, content, header } = createLayout(widget);
-    
+    widget.refreshAfterDate = new Date(Date.now() + refreshRate)
+    const isUpdateAvailable = await checkForUpdate();
+    const { stack, content, header } = createLayout(widget, isUpdateAvailable);
+
     let data = (!Keychain.contains('mail') || !Keychain.contains('password')) ? 403 : await getData();
-    
+
     if (data === 403) {
         Keychain.contains('mail') && Keychain.remove('mail');
         Keychain.contains('password') && Keychain.remove('password');
-        
+
         createMessage(
             content,
             `Login fehlgeschlagen!`,
             `Bitte starte das "${module.filename.split('/').pop().replace('.js', '')}" Script in der Scriptable App und gib deine Zugangsdaten ein.`
         );
-        
+
         return widget;
     }
 
     const today = new Date(new Date().setHours(0, 0, 0, 0));
     const fromTimestamp = new Date().getHours() >= 14 ? new Date(today.setDate(today.getDate() + 1)) : today;
- 
-    
+
+
     if (data.length === 0) {
         createMessage(
             content,
             "Hungrig?",
             shouldShowNextWeek() ? "Nächste Woche kein Essen bestellt." : "Diese Woche kein Essen bestellt."
         );
-        
+
         return widget;
     }
-    
+
     const meal = data.find(meal_ => meal_.timestamp >= fromTimestamp);
     if (['small', 'medium'].includes(widgetFamily)) {
         if (!meal) {
@@ -194,42 +198,42 @@ async function createWidget() {
 
             return widget;
         }
-        
+
         if (!meal.isToday) {
             createDate(header, meal.day);
         }
     }
-    
+
     if (widgetFamily === 'small') {
         createMessage(content, meal.name);
-            
+
         return widget;
     }
-        
+
     if (widgetFamily === 'medium') {
         data = data.filter(entry => entry.timestamp === meal.timestamp).slice(0, 2);
-        
+
         if (data.length === 1) {
             createMessage(content, meal.name);
-            
+
             return widget;
         }
     }
-    
+
     if (widgetFamily === 'large') {
         createDate(header, getDateRange());
     }
-    
+
     content.setPadding(...style.content.padding);
     data.forEach(meal => createEntry(content, meal, widgetFamily === 'large'));
     stack.addSpacer();
-    
+
     return widget;
 }
 
 function shouldShowNextWeek() {
     const today = new Date();
-    return today.getDay() > 5;
+    return today.getDay() > 5 || (today.getDay() === 5 && today.getHours() >= 14);
 }
 
 function getDay(_day) {
@@ -251,7 +255,7 @@ function getFriday() {
 function getDateRange() {
     const monday = getMonday().split('.');
     const friday = getFriday().split('.');
-    
+
     return monday[0] + '.' + (monday[1] !== friday[1] ? (monday[1] + '.') : '') + ` - ${friday[0]}.${friday[1]}.`;
 }
 
@@ -259,7 +263,7 @@ async function getData() {
     const url = `https://${baseUrl}/kunden/bestelluebersicht/?date_from=${getMonday()}&date_to=${getFriday()}`;
     const webview = new WebView();
     await webview.loadURL(url);
-    
+
     const tryLogin = `
         (function (){  
             if (document.getElementById('login_submit')) {
@@ -278,7 +282,7 @@ async function getData() {
         await webview.waitForLoad();
         await webview.loadURL(url);
     }
-    
+
     const extractData = `
         (function (){  
             if (document.getElementById('login_submit')) {
@@ -320,16 +324,16 @@ async function getData() {
 function createLayout(widget, isUpdateAvailable) {
     widget.backgroundColor = color.widget.background;
     widget.setPadding(0, 0, 0, 0);
-    
+
     const widgetStack = widget.addStack();
     widgetStack.layoutVertically();
-    
+
     isUpdateAvailable && createUpdateMessage(widgetStack);
-    
+
     const stack = widgetStack.addStack();
     stack.setPadding(...style.widget.padding);
     stack.layoutVertically();
-    
+
     const layoutStack = stack.addStack();
     layoutStack.topAlignContent();
     layoutStack.layoutVertically();
@@ -338,11 +342,11 @@ function createLayout(widget, isUpdateAvailable) {
     const headerLogo = headerStack.addImage(getLogo());
     headerLogo.imageSize = style.logo.size;
     headerStack.addSpacer();
-    
+
     const contentStack = layoutStack.addStack();
     contentStack.layoutVertically();
     contentStack.spacing = style.entry.outerSpacing;
-    
+
     return {
         stack,
         content: contentStack,
@@ -355,11 +359,11 @@ function createUpdateMessage(widgetStack) {
     updateStack.setPadding(...style.update.padding);
     updateStack.backgroundColor = color.update.background;
     updateStack.addSpacer();
-    
+
     const updateText = updateStack.addText("Update verfügbar");
     updateText.font = Font.mediumMonospacedSystemFont(style.update.fontSize);
     updateText.textColor = color.update.text;
-    
+
     updateStack.addSpacer();
 }
 
@@ -368,7 +372,7 @@ function createMessage(content, _headline, _text) {
     content.centerAlignContent();
     content.addSpacer();
     content.spacing = 3;
-        
+
     const headline = content.addText(_headline);
     headline.font = Font.semiboldSystemFont(24);
     headline.minimumScaleFactor = .5;
@@ -385,7 +389,7 @@ function createMessage(content, _headline, _text) {
 function createEntry(content, meal, showDay) {
     const entryStack = content.addStack();
     entryStack.spacing = style.entry.innerSpacing;
-    
+
     if (showDay) {
         const dayStack = entryStack.addStack();
         dayStack.backgroundColor = meal.isToday ? color.day.backgroundToday : color.day.background;
@@ -397,7 +401,7 @@ function createEntry(content, meal, showDay) {
         day.font = Font.boldSystemFont(style.day.fontSize);
         day.textColor = meal.isToday ? color.day.textToday : color.day.text;
     }
-    
+
     const nameStack = entryStack.addStack();
     nameStack.setPadding(...style.entry.padding)
 
@@ -415,6 +419,15 @@ function createDate(header, text) {
     const date = dateStack.addText(text);
     date.font = Font.boldSystemFont(style.date.fontSize);
     date.textColor = color.date.text;
+}
+
+async function checkForUpdate() {
+    const request = new Request('https://raw.githubusercontent.com/martinkutter/augusto-scriptable-ios-widget/main/version.json');
+    request.timeoutInterval = 5;
+
+    const currentVersion = parseInt(await request.loadString());
+
+    return request.response.statusCode === 200 && currentVersion !== version;
 }
 
 function getLogo() {
