@@ -21,24 +21,30 @@
 ## Small Widget
 <img alt="Ansicht eines kleinen Widgets" src="doc/small.png?raw=true" width="88"/>
 
-Stellt das Essen vom aktuellen Tag dar. Ab 14 Uhr das Essen vom Folgetag mit Wochentag rechts oben.
+Stellt das Essen vom aktuellen Tag dar.  
+Ab 14 Uhr das Essen vom Folgetag mit Wochentag rechts oben.
 
 ## Medium Widget
 <img alt="Ansicht eines kleinen Widgets" src="doc/medium.png?raw=true" width="188"/>
 
-Ideal für alle, die Nachtisch oder für ihren Partner mitbestellen. Stellt bis zu zwei Essen vom aktuellen Tag dar. Ab 14 Uhr die Essen des Folgetags mit Wochentag rechts oben.
+Ideal für alle, die Nachtisch oder für ihren Partner mitbestellen.  
+Stellt bis zu zwei Essen vom aktuellen Tag dar.  
+Ab 14 Uhr die Essen des Folgetags mit Wochentag rechts oben.
 
 ## Large Widget
 <img alt="Ansicht eines kleinen Widgets" src="doc/large.png?raw=true" width="188"/>
 
-Stellt das Essen der aktuellen Woche dar. Ab Freitag 14 Uhr das Essen der Folgewoche.
+Stellt das Essen der aktuellen Woche dar.  
+Ab Freitag 14 Uhr das Essen der Folgewoche.
 
 ## Update
-Die Widgets stellen automatisch einen Banner dar, wenn ein Update verfügbar ist.
+Die Widgets stellen automatisch einen Banner dar, wenn ein Update verfügbar ist.  
 Dann bitte Schritt 3 der Installation wiederholen.
 
 ### Author
 Martin Kutter
 
-### Licence
-MIT
+### Licence / Copyright
+Sourcecode: MIT  
+Images: No License  
+Logo: Copyright Augusto UG (haftungsbeschränkt)
