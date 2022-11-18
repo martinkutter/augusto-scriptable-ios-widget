@@ -46,5 +46,5 @@ Martin Kutter
 
 ### Licence / Copyright
 Sourcecode: MIT  
-Screenshots: Alle Rechte vorbehalten.
+Screenshots: Alle Rechte vorbehalten.  
 Logo: Alle Rechte vorbehalten. Copyright Augusto UG (haftungsbeschränkt)
