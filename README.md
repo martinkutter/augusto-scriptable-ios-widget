@@ -1,5 +1,3 @@
-![Ansicht der verschiedenen Anzeigevarianten des iOS Widgets](doc/visual.png?raw=true)
-
 # Augusto Scriptable iOS Widget
 [Scriptable](https://scriptable.app) Script, um bestellte Gerichte von [chemnitz.kitchen](https://chemnitz.kitchen) als iOS-Widgets anzuzeigen.
 
@@ -11,32 +9,71 @@
 5. Name "Augusto" eingeben und schließen
 6. Script mit Play ausführen
 7. Zugangsdaten eingeben
-8. Zum iOS Homescreen wischen, auf dem das Widget platziert werden soll
-9. Hintergrund tippen und gedrückt halten
-10. Auf (+) oben links tippen und nach "Scriptable" suchen
-11. Widget in gewünschter Größe auswählen und hinzufügen, mit "Fertig" bestätigen
-12. Lange auf das Widget tippen und "Widget bearbeiten" wählen
-13. "Augusto" als Script und "Run Script" als When Interacting auswählen
-14. Fertig
+8. Widget zum Home- oder Lockscreen hinzufügen, siehe unten
 
-## Small Widget
+## Homescreen Widgets
+![Ansicht der verschiedenen Anzeigevarianten der iOS-Homescreen Widgets](doc/visual-homescreen.png?raw=true)
+
+### Hinzufügen
+1. Zum iOS Homescreen wischen, auf dem das Widget platziert werden soll
+2. Hintergrund tippen und gedrückt halten 
+3. Auf (+) oben links tippen und nach "Scriptable" suchen \
+    <em>Es kann sein, dass Scriptable hier kurz nach der Installation noch nicht auftaucht. \
+    👽 Neustarten des iPhones hilft dann weiter.</em>
+4. Widget in gewünschter Größe auswählen und hinzufügen, mit "Fertig" bestätigen 
+5. Lange auf das Widget tippen und "Widget bearbeiten" wählen
+6. "Augusto" als Script und "Run Script" als When Interacting auswählen 
+7. Fertig
+
+### Small Widget
 <img alt="Ansicht eines kleinen Widgets" src="doc/small.png?raw=true" width="88"/>
 
 Stellt bis 14 Uhr das erste Gericht des aktuellen Tages dar, danach das Gericht des nächsten Tages, für den bestellt wurde.
 Wird nicht das Essen vom aktuellen Tag angezeigt, befindet sich rechts oben der Wochentag, auf den sich die Bestellung bezieht.
 
-## Medium Widget
+### Medium Widget
 <img alt="Ansicht eines kleinen Widgets" src="doc/medium.png?raw=true" width="188"/>
 
 Ideal für alle, die mehrere Gerichte pro Tag bestellt haben, z.B. Desserts.  
 Stellt bis 14 Uhr bis zu zwei Gerichte des aktuellen Tages dar, danach die Gerichte des nächsten Tages, für den bestellt wurde.
 Werden nicht die Gerichte vom aktuellen Tag angezeigt, befindet sich rechts oben der Wochentag, auf den sich die Bestellung bezieht.
 
-## Large Widget
+### Large Widget
 <img alt="Ansicht eines kleinen Widgets" src="doc/large.png?raw=true" width="188"/>
 
 Stellt die bestellten Gerichte der aktuellen Woche dar.  
 Ab Freitag 14 Uhr werden die bestellten Gerichte der Folgewoche angezeigt.
+
+## Lockscreen Widgets
+![Ansicht der verschiedenen Anzeigevarianten der iOS-Lockscreen Widgets](doc/visual-lockscreen.png?raw=true)
+
+### Hinzufügen
+1. Lockscreen tippen und gedrückt halten
+2. "Anpassen" auswählen
+3. Sperrbildschirm auswählen
+4. Bereich über/unter der Uhrzeit antippen
+5. "Scriptable" aus der Liste auswählen \
+   <em>Es kann sein, dass Scriptable hier kurz nach der Installation noch nicht auftaucht. \
+   👽 Neustarten des iPhones hilft dann weiter.</em>
+6. Widget in gewünschter Größe auswählen und hinzufügen 
+7. auf das Widget tippen
+8. "Augusto" als Script und "Run Script" als When Interacting auswählen 
+9. Fertig
+
+### Inline Widget
+<img alt="Ansicht des Inline Widgets" src="doc/inline.png?raw=true" width="278"/>
+
+Stellt das Gericht des aktuellen Tages dar, wenn am aktuellen Tag nichts bestellt wurde, bleibt das Widget leer.
+
+### Rectangular Widget
+<img alt="Ansicht des eckigen Widgets" src="doc/rectangular.png?raw=true" width="155"/>
+
+Stellt das Gericht des aktuellen Tages dar, wenn am aktuellen Tag nichts bestellt wurde, bleibt das Widget leer.
+
+### Circular Widget
+<img alt="Ansicht des runden Widgets" src="doc/circular.png?raw=true" width="88"/>
+
+Wenn am aktuellen Tag ein Gericht bestellt wurde, wird das Augusto Pizza Logo angezeigt.
 
 ## Update Hinweis
 Steht eine neue Version des Widgets zur Verfügung, wird im Widget automatisch ein Hinweis angezeigt.  
