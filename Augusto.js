@@ -2,7 +2,7 @@
 // These must be at the very top of the file. Do not edit.
 // icon-color: red; icon-glyph: cookie;
 
-const version = 2;
+const version = 3;
 const baseUrl = 'chemnitz.kitchen';
 const refreshRate = 1000 * 60 * 60 // 1 hour
 
@@ -361,28 +361,28 @@ async function getData() {
             const foodOrder = document.getElementsByClassName('food-order');
 
             if (foodOrder.length === 0) {
-                return JSON.stringify([]);
+                completion(JSON.stringify([]));
+            } else {
+                completion(JSON.stringify(Array
+                    .from(document
+                        .getElementsByClassName('food-order')[0]
+                        .getElementsByTagName('tbody')[0]
+                        .getElementsByTagName('tr')
+                    )
+                    .map(row => {
+                        const columns = Array.from(row.getElementsByTagName('td'));
+                        const dayAndDate = columns[0].innerText.split(' ');
+                        const date = dayAndDate[1].split('.');
+                        const dateObject = new Date(parseInt(date[2]) + 2000, parseInt(date[1])-1, date[0]); 
+                        return {
+                            day: dayAndDate[0],
+                            timestamp: dateObject.getTime(),
+                            isToday: dateObject.toDateString() === today,
+                            name: columns[2].innerText
+                        };
+                    })
+                ));
             }
-
-            completion(JSON.stringify(Array
-                .from(document
-                    .getElementsByClassName('food-order')[0]
-                    .getElementsByTagName('tbody')[0]
-                    .getElementsByTagName('tr')
-                )
-                .map(row => {
-                    const columns = Array.from(row.getElementsByTagName('td'));
-                    const dayAndDate = columns[0].innerText.split(' ');
-                    const date = dayAndDate[1].split('.');
-                    const dateObject = new Date(parseInt(date[2]) + 2000, parseInt(date[1])-1, date[0]); 
-                    return {
-                        day: dayAndDate[0],
-                        timestamp: dateObject.getTime(),
-                        isToday: dateObject.toDateString() === today,
-                        name: columns[2].innerText
-                    };
-                })
-            ));
          })();
     `;
 
